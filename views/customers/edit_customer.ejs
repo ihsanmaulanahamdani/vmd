@@ -1,0 +1,35 @@
+<%- include ../partials/header.ejs %>
+<body>
+
+<h1 class="center">Edit Customers Data</h1>
+
+<form action="/customer/edit/<%= customersData.id %>" class="form-group" method="post">
+  Parent Name:<br>
+  <input type="text" name="parent_name" value="<%= customersData.parent_name %>">
+  <br>
+  Email:<br>
+  <input type="text" name="email" value="<%= customersData.email %>">
+  <br>
+  Password:<br>
+  <input type="text" name="password" value="<%= customersData.password %>">
+  <br>
+  Salt:<br>
+  <input type="text" name="salt" value="<%= customersData.salt %>">
+  <br>
+  Child Name:<br>
+  <input type="text" name="child_name" value="<%= customersData.child_name %>">
+  <br>
+  Pin:<br>
+  <input type="text" name="pin" value="<%= customersData.pin %>">
+  <br>
+  Saldo:<br>
+  <input type="text" name="saldo" value="<%= customersData.saldo %>">
+  <br>
+  Budget Limit:<br>
+  <input type="text" name="budget_limit" value="<%= customersData.budget_limit %>">
+  <br><br>
+  <input type="submit" value="Edit Teacher" class="btn btn-success">
+</form> 
+
+</body>
+</html>
