@@ -1,0 +1,20 @@
+<a href="/items/add">Add Item</a>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>NAME</th>
+    <th>STOCK</th>
+    <th>PRICE</th>
+    <th>ACTION</th>
+  </tr>
+  <% Items.forEach(function(item){%>
+    <tr>
+      <td><%= item.id%></td>
+      <td><%= item.name%></td>
+      <td><%= item.stock%></td>
+      <td><%= item.price%></td>
+    </tr>
+    <a href></a>
+    <a href></a>
+  <%})%>
+</table>
