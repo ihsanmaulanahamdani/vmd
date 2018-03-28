@@ -9,16 +9,6 @@ app.use(bodyParser.urlencoded({
 
 app.set('view engine', 'ejs')
 
-// app.get('/', (req, res) => {
-//     db.Customer.findAll()
-//         .then(dataCustomer => {
-//             res.send('ihsan')
-//         })
-//         .catch(err => {
-//             res.send(err.message)
-//         })
-// })
-
 // items
 let routeItems = require('./routes/item')
 app.use('/items', routeItems)
