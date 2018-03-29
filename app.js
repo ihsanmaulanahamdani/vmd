@@ -18,7 +18,7 @@ let routeCustomers = require('./routes/customer')
 app.use('/customers', routeCustomers)
 
 // transactions
-let routeTransactions = require('./routes/transaction')
+let routeTransactions = require('./routes/transaction_history')
 app.use('/transactions', routeTransactions)
 
 

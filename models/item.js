@@ -5,9 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     stock: DataTypes.INTEGER,
     price: DataTypes.INTEGER
   }, {});
-  Item.associate = function(models) {
+  Item.associate = function (models) {
     // associations can be defined here
-    Item.belongsToMany(models.Customer, { through: models.Transaction });
+    Item.belongsToMany(models.Customer, {
+      through: models.Transaction
+    });
   };
   return Item;
 };
