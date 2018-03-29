@@ -12,21 +12,20 @@
           <th>Budget Limit</th>
           <th>Action</th>
         </tr>
-        <% customersData.forEach(customers => { %>
           <tr>
-            <td><%= customers.id %></td>
-            <td><%= customers.parent_name %></td>
-            <td><%= customers.email %></td>
-            <td><%= customers.child_name %></td>
-            <td><%= customers.saldo %></td>
-            <td><%= customers.budget_limit %></td>
+            <td><%= user.id %></td>
+            <td><%= user.parent_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.child_name %></td>
+            <td><%= user.saldo %></td>
+            <td><%= user.budget_limit %></td>
             <td>
-            <a href="/customers/edit/<%= customers.id %>" class="btn btn-success">Edit</a>
-            <a href="/customers/delete/<%= customers.id %>" class="btn btn-success" onclick="return confirm('Are you sure you want to delete this Customer?')">Delete</a>
-            <a href="/transactions/history/<%= customers.id %>" class="btn btn-success">History</a>
+            <a href="/customers/edit/<%= user.id %>" class="btn btn-success">Edit</a>
+            <a href="/customers/delete/<%= user.id %>" class="btn btn-success" onclick="return confirm('Are you sure you want to delete this Customer?')">Delete</a>
+            <a href="/buys" class="btn btn-success">Buy</a>
+            <a href="/transactions/history/<%= user.id %>" class="btn btn-success">History</a>
             </td>
           </tr>
-        <% }) %>
 
       </table>
     </div>
