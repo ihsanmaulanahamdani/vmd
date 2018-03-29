@@ -1,0 +1,25 @@
+<%- include ../partials/_header.ejs %>
+  <body>
+    <div>
+      <h1 class="center">All History Data</h1>
+      <table class="table">
+        <tr>
+          <th>Date</th>
+          <th>Item Name</th>
+        </tr>
+        <% if (allItem.length !== 0) { %>
+        <% allItem.forEach(item => { %>
+          <tr>
+            <td><%= `${(item.createdAt).getMonth()}-${(item.createdAt).getDate()}-${(item.createdAt).getFullYear()}` %></td>
+            <td><%= item.name %></td>
+          </tr>
+        <% }) %> 
+        <% } %>
+
+      </table>
+    </div>
+    
+  </div>
+  </div>
+  </body>
+</html>
