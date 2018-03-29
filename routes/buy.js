@@ -2,10 +2,14 @@ var express = require('express')
 var router = express.Router()
 const model = require('../models')
 var session = require('express-session');
+const sequelize = require('sequelize');
+const helpers = require('../helpers/index');
 
 
-router.get('/', checkLogin, function(req,res){
-  model.Item.findAll()
+router.get('/', helpers.checkLogin, function(req,res){
+  model.Item.findAll({
+    order: sequelize.literal('name ASC')
+  })
   .then(dataBuy => {
     res.render('buys/buy',{Buys:dataBuy})
   })
@@ -14,16 +18,7 @@ router.get('/', checkLogin, function(req,res){
   })
 })
 
-function checkLogin(req, res, next){
-    if(req.session.user){
-      next()
-    }
-    else {
-      res.redirect('/')
-    }
-}
-
-router.get('/:id', function(req, res){
+router.get('/:id', helpers.checkLogin, function(req, res){
   // res.send(req.session.user)
   model.Item.findOne({
     where: {
@@ -39,7 +34,7 @@ router.get('/:id', function(req, res){
   })
 })
 
-router.post('/:id', function(req, res){
+router.post('/:id', helpers.checkLogin, function(req, res){
   // res.send(req.session.user)
   let user = req.session.user
   model.Transaction.create({

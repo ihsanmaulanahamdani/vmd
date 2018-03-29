@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
 const model = require('../models')
+const helpers = require('../helpers/index');
 
-router.get('/',function(req,res){
+router.get('/',helpers.checkLogin, function(req,res){
   model.Item.findAll({raw:true})
   .then(dataItem => {
     res.render('items/item',{Items:dataItem})
@@ -12,11 +13,11 @@ router.get('/',function(req,res){
   })
 })
 
-router.get('/add',function(req,res){
+router.get('/add',helpers.checkLogin, function(req,res){
   res.render('items/add_item.ejs')
 })
 
-router.post('/add',function(req,res){
+router.post('/add',helpers.checkLogin, function(req,res){
   model.Item.create({
     name:req.body.name,
     stock:req.body.stock,
@@ -32,7 +33,7 @@ router.post('/add',function(req,res){
   })
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', helpers.checkLogin, (req, res) => {
   model.Item.findOne({
     where: {
       id: req.params.id
@@ -47,7 +48,7 @@ router.get('/edit/:id', (req, res) => {
 })
 
 // edit data item
-router.post('/edit/:id',function(req,res){
+router.post('/edit/:id',helpers.checkLogin, function(req,res){
   // console.log(req.params)
   let idObj = req.params.id
   let obj = {
@@ -70,7 +71,7 @@ router.post('/edit/:id',function(req,res){
 })
 
 // delete item
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', helpers.checkLogin, (req, res) => {
   let idObj = req.params.id
   model.Item.destroy({
     where: {

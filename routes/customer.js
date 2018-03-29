@@ -1,8 +1,9 @@
 const db = require('../models')
 const express = require('express')
 const router = express.Router()
+const helpers = require('../helpers/index');
 
-router.get('/', (req, res) => {
+router.get('/', helpers.checkLogin, (req, res) => {
     db.Customer.findAll()
         .then(dataCustomer => {
             res.render('customers/customer' ,{customersData: dataCustomer})
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', helpers.checkLogin, (req, res) => {
     db.Customer.findOne({
         where: {
             id: req.params.id
@@ -26,7 +27,7 @@ router.get('/edit/:id', (req, res) => {
     })
 })
 
-router.post('/edit/:id', (req, res) => {
+router.post('/edit/:id', helpers.checkLogin, (req, res) => {
     db.Customer.findOne({
             where: {
                 id: req.params.id
@@ -42,7 +43,7 @@ router.post('/edit/:id', (req, res) => {
                     pin: req.body.pin,
                     saldo: req.body.saldo,
                     budget_limit: req.body.budget_limit,
-                    
+
                 }, {
                     where: {
                         id: req.params.id
@@ -55,11 +56,11 @@ router.post('/edit/:id', (req, res) => {
                     res.send(err.message)
                 })
         })
-        
+
 
 })
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', helpers.checkLogin, (req, res) => {
     db.Customer.destroy({
             where: {
                 id: req.params.id
