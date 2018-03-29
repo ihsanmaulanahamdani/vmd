@@ -7,17 +7,20 @@
     <div class="col-sm-8 text-left">
       <h1>Add Item</h1>
       <p>
-        <form action="" method="post">
+        <form action="/buys/<%=items.id%>" method="post">
           <div class="form-group">
-            <input type="text" name="name" placeholder="Enter item name">
+            <input type="text" name="id" value ="<%= items.id%>" disabled>
           </div>
           <div class="form-group">
-            <input type="text" name="stock" placeholder="Enter stock">
+            <input type="text" name="name" value ="<%= items.name%>" disabled>
           </div>
           <div class="form-group">
-            <input type="text" name="price" placeholder="Enter price">
+            <input type="text" name="stock" value ="<%= items.stock%>" disabled>
           </div>
-          <button type="submit">Submit</button>
+          <div class="form-group">
+            <input type="text" name="price" value ="<%= items.price%>" disabled>
+          </div>
+          <button type="submit">Buy</button>
         </form>
     </div>
   </div>
