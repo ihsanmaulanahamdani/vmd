@@ -14,7 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     child_name: DataTypes.STRING,
     pin: DataTypes.INTEGER,
     saldo: DataTypes.INTEGER,
-    budget_limit: DataTypes.INTEGER
+    budget_limit: {type: DataTypes.INTEGER, 
+      validate: {
+        isZero : function limit(value, next) {
+          if (value <= 0) {
+            next('Budget anda tidak mencukupi untuk pembelian hari ini')
+          } else {
+            next()
+          }
+        }
+      }
+    }
   }, {});
   Customer.associate = function (models) {
     // associations can be defined here
