@@ -7,23 +7,48 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks:{
       afterCreate: (user,option) => {
-        console.log(`${user} ${option}`)
-      //   sequelize.models.Item.findOne({
-      //     where: {
-      //       id: this.ItemId
-      //     }
-      //   })
-      //   .then(dataItem =>{
-      //     sequelize.models.Item.update({
-      //       stock: stock -1
-      //     },{
-      //       where:{
-      //         id: dataItem.id
-      //       }
-      //     })
-      //
-      //   })
-      //
+        sequelize.models.Item.findOne({
+          where: {
+            id: user.ItemId
+          }
+        })
+        .then(dataItem =>{
+          let stockUpdate = dataItem.stock -1
+          sequelize.models.Item.update({
+            stock: stockUpdate
+          },{
+            where:{
+              id: user.ItemId
+            }
+          })
+
+        })
+
+        sequelize.models.Customer.findOne({
+          where: {
+            id: user.CustomerId
+          }
+        })
+        .then(dataCustomer =>{
+          sequelize.models.Item.findOne({
+            where: {
+              id: user.ItemId
+            }
+          })
+          .then(dataItem =>{
+            let saldoUpdate = dataCustomer.saldo - dataItem.price
+            let budgetLimitUpdate = dataCustomer.budget_limit - dataItem.price
+            sequelize.models.Customer.update({
+              saldo: saldoUpdate,
+              budget_limit:budgetLimitUpdate
+            },{
+              where: {
+                id: user.CustomerId
+              }
+            })
+          })
+        })
+
       }
     }
   });

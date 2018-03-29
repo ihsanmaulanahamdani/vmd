@@ -3,8 +3,9 @@ const express = require('express')
 const sq = require('sequelize')
 const router = express.Router()
 const Op = sq.Op
+const helpers = require('../helpers/index');
 
-router.get('/history/:id', (req, res) => {
+router.get('/history/:id', helpers.checkLogin, (req, res) => {
     db.Transaction.findAll({
             where: {
                 CustomerId: req.params.id
