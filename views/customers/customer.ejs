@@ -22,7 +22,8 @@
             <td><%= customers.budget_limit %></td>
             <td>
             <a href="/customers/edit/<%= customers.id %>" class="btn btn-success">Edit</a>
-            <a href="/customers/delete/<%= customers.id %>" class="btn btn-success" onclick="return confirm('Are you sure you want to delete this Teacher?')">Delete</a>
+            <a href="/customers/delete/<%= customers.id %>" class="btn btn-success" onclick="return confirm('Are you sure you want to delete this Customer?')">Delete</a>
+            <a href="/transactions/history/<%= customers.id %>" class="btn btn-success">History</a>
             </td>
           </tr>
         <% }) %>
