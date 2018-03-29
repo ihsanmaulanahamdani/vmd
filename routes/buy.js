@@ -4,8 +4,8 @@ const model = require('../models')
 var session = require('express-session');
 
 
-router.get('/', function(req,res){
-  model.Item.findAll({raw:true})
+router.get('/', checkLogin, function(req,res){
+  model.Item.findAll()
   .then(dataBuy => {
     res.render('buys/buy',{Buys:dataBuy})
   })
@@ -14,38 +14,49 @@ router.get('/', function(req,res){
   })
 })
 
-// function checklogin(re, res)=>{
-//     re.session ada ?
-//      next
-//      else {
-//        redirect ke login
-//      }
-// }
+function checkLogin(req, res, next){
+    if(req.session.user){
+      next()
+    }
+    else {
+      res.redirect('/')
+    }
+}
 
-router.get('/:id', (req, res) => {
+router.get('/:id', function(req, res){
+  // res.send(req.session.user)
   model.Item.findOne({
     where: {
       id: req.params.id
     }
   })
   .then(dataItem => {
-    res.send(dataItem)
-    // res.render('buys/add_buy',{items: dataItem})
-    // model.Customer.findOne({
-    //   where: {
-    //     email: my_req_body.email
-    //   }
-    // })
-    // .then(function(dataCustomer){
-    //   res.send(dataCustomer)
-    // })
-    // .catch(function(error){
-    //   res.send('ini error dari session', error)
-    // })
+    // res.send(dataItem)
+    res.render('buys/add_buy',{items: dataItem})
   })
   .catch(err => {
     res.send(err.message)
   })
 })
+
+router.post('/:id', function(req, res){
+  // res.send(req.session.user)
+  let user = req.session.user
+  model.Transaction.create({
+    ItemId: req.params.id,
+    CustomerId: user.id,
+    transaction_date: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+  .then(data => {
+    // res.send(data)
+    res.redirect('/buys')
+  })
+  .catch(err =>{
+    res.send('inii errror', err)
+  })
+})
+
 
 module.exports = router
